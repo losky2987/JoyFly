@@ -1,41 +1,30 @@
 #ifndef datatype
 #define datatype
 
-
-typedef short i8;
-typedef int i16;
-typedef long i32;
-typedef long long i64;
-
-typedef unsigned short u8;
-typedef unsigned int u16;
-typedef unsigned long u32;
-typedef unsigned long long u64;
-
-typedef float f32;
-typedef double f64;
-
-typedef char* text;
-
-typedef void* alltype;
-
-typedef struct {
-    i64 integer;
-    u64 after_point;
-    u8 bit_reg;
-} improved_float;
-
-//////////////////////////////////////////////
+#include "base_type.h"
 
 typedef struct _flight_record flight_record;
-typedef struct _aircraft aircraft;
-typedef struct _airport airport;
-typedef struct _flight flight;
-typedef struct _ticket ticket;
-typedef struct _etkt etkt;
-typedef struct _date date;
-typedef struct _time time;
-typedef struct _ticket_info ticket_info;
+typedef struct _aircraft      aircraft;
+typedef struct _airport       airport;
+typedef struct _flight        flight;
+typedef struct _ticket        ticket;
+typedef struct _etkt          etkt;
+typedef struct _date          date;
+typedef struct _time          time;
+typedef struct _date_time     date_time;
+
+typedef struct _flight_record {
+    u64       id;
+    date_time takeoff_time;
+    u32       takeoff_time_delay;
+    date_time landing_time;
+    u32       landing_time_delay;
+    airport   takeoff_airport;
+    airport   landing_airport;
+    aircraft  aircraft_info;
+    flight    flight_info;
+    ticket    ticket_info;
+} flight_record;
 
 typedef struct _aircraft {
     text manufacture;
@@ -97,15 +86,20 @@ typedef struct _etkt {
 
 typedef struct _date {
     u16 year;
-    u8 month;
-    u8 day;
+    u8  month;
+    u8  day;
 } date;
 
 typedef struct _time {
     u8 hour;
     u8 minute;
     u8 second;
-    i8 utc;
 } time;
+
+typedef struct _date_time {
+    date date;
+    time time;
+    i16  timezone_offset;
+} date_time;
 
 #endif
